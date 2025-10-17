@@ -21,8 +21,6 @@ class HTMLNode:
         return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
 
 class LeafNode(HTMLNode):
-    normal_tags = ["h1", "h2", "h3", "h4", "h5", "h6", "p", "i", "li", "blockquote", "code"]
-
     def __init__(self, tag, value, props=None):
         super().__init__(tag, value, None, props)
 
