@@ -18,7 +18,7 @@ def read_file(file_path):
         content = file.read()
     return content
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     md_text = read_file(from_path)
     html_template = read_file(template_path)
@@ -27,20 +27,22 @@ def generate_page(from_path, template_path, dest_path):
     title = extract_title(md_text)
     html_template = html_template.replace("{{ Title }}", title)
     html_template = html_template.replace("{{ Content }}", html_content)
+    html_template = html_template.replace('src="/', f'src="{basepath}')
+    html_template = html_template.replace('href="/', f'href="{basepath}')
     with open(dest_path, 'w') as file:
         file.write(html_template)
 
-def generate_page_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_page_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     print(f"Generating dir from {dir_path_content} to {dest_dir_path} using {template_path}")
     for path in os.listdir(dir_path_content):
         from_path = os.path.join(dir_path_content, path)
         if os.path.isfile(from_path) and path.endswith(".md"):
             html_path = path.replace(".md", ".html")
             dest_path = os.path.join(dest_dir_path, html_path)
-            generate_page(from_path, template_path, dest_path)
+            generate_page(from_path, template_path, dest_path, basepath)
         else:
             new_dir_path_content = os.path.join(dir_path_content, path)
             new_dest_dir_path = os.path.join(dest_dir_path, path)
             print(f"created dir: {new_dest_dir_path}")
             os.makedirs(new_dest_dir_path)
-            generate_page_recursive(new_dir_path_content, template_path, new_dest_dir_path)
+            generate_page_recursive(new_dir_path_content, template_path, new_dest_dir_path, basepath)
