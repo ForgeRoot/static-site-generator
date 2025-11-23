@@ -190,11 +190,11 @@ class TestBlockToBlockType(unittest.TestCase):
         self.assertEqual(block_to_block_type(block), BlockType.CODE)
     
     def test_quote_single_line(self):
-        block = ">This is a quote"
+        block = "> This is a quote"
         self.assertEqual(block_to_block_type(block), BlockType.QUOTE)
     
     def test_quote_multi_line(self):
-        block = ">Line 1\n>Line 2\n>Line 3"
+        block = ">  Line 1\n> Line 2\n> Line 3"
         self.assertEqual(block_to_block_type(block), BlockType.QUOTE)
     
     def test_unordered_list_dash(self):
