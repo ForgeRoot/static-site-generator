@@ -1,7 +1,7 @@
 import os
 
-from markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType
-from markdown_html import get_heading_level, markdown_to_html_node
+from src.markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType
+from src.markdown_html import get_heading_level, markdown_to_html_node
 
 def extract_title(markdown):
     blocks = markdown_to_blocks(markdown)

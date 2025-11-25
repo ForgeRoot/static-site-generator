@@ -1,4 +1,4 @@
-from textnode import TextNode, TextType
+from src.textnode import TextNode, TextType
 import re
 
 def text_to_textnodes(text):
