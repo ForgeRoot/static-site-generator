@@ -6,22 +6,24 @@ from src.copy_static import copy_files_recursive
 from src.generate_page import generate_page, generate_page_recursive
 
 dir_path_static = "./static"
-dir_path_public = "./public"
-dir_path_docs = "./docs"
+dir_path_public = "./docs"
+dir_path_content = "./content"
+template_path = "./template.html"
 
+default_basepath = "/"
 
 def main():
+    basepath = default_basepath
     if len(sys.argv) > 1:
-        basepath = sys.argv[1]  # First argument after script name
-    else:
-        basepath = "/"  # Default
+        basepath = sys.argv[1]
+
     print("Deleting public directory...")
-    if os.path.exists(dir_path_docs):
-        shutil.rmtree(dir_path_docs)
+    if os.path.exists(dir_path_public):
+        shutil.rmtree(dir_path_public)
     
     print("Copying static files to public directory...")
-    copy_files_recursive(dir_path_static, dir_path_docs)
-    generate_page_recursive("content", "template.html", dir_path_docs, basepath)
+    copy_files_recursive(dir_path_static, dir_path_public)
+    generate_page_recursive(dir_path_content, template_path, dir_path_public, basepath)
 
 
 
